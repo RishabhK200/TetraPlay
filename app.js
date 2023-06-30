@@ -85,8 +85,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
       ]
 
-    const theShapes = [lShape, zShape, tShape, oShape, iShape]
-    
+    const theShapes = [lShape, zShape, tShape, oShape, iShape] 
 
+    let currentPosition = 4
+    let currentRotation = 0 
+
+    // randomly select a tetriminose and its first rotation
+
+    let random = Math.floor(Math.random()*theShapes.length)
+
+    let current = theShapes[random][0]
+
+    // draw the tetrimino
+
+    function draw() {
+        current.forEach(index=> {
+          squares[currentPosition + index].classList.add('tetrimino')
+        })
+    }
+    
+    // undraw the tetrimino
+
+    function undraw() {
+        current.forEach(index  => {
+          squares[currentPosition + index].classList.remove('tetrimino')
+        })
+    }
+    
+    // drop the tetriminoes after a interval
+
+    timerId = setInterval(moveDown, 1000)
+
+    function moveDown() {
+        undraw()
+        currentPosition += width
+        draw()
+    }
 
 } )
