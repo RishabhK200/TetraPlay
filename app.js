@@ -138,6 +138,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 }
 
+    // move the tetrimino left untill it reaches the edge
+
+    function moveLeft(){
+
+        undraw()
+
+        const isAtLeftEdge = current.some(index => (currentPosition + index) % width === 0)            // if any current postion touches the edge
+
+        if(!isAtLeftEdge) currentPosition -=1                                                          // can move left if not at edge
+
+        if(current.some(index => squares))
+
+        if(current.some(index => squares[currentPosition + index].classList.contains('taken')))       // to push back to clear space 
+        currentPosition +=1
+
+        draw() 
+    }
 
 
 
