@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const width = 10
 
-    // the tetriminoes (only 4 rotations of each)
+    // the tetriminoes (maximum 4 rotations of each)
 
     const lShape = [
         [1, width+1, width*2+1 , 2],                  // . . 
@@ -114,12 +114,33 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // drop the tetriminoes after a interval
 
-    timerId = setInterval(moveDown, 1000)
+    timerId = setInterval(moveDown, 500)
 
     function moveDown() {
         undraw()
         currentPosition += width
         draw()
+        freeze()
     }
+
+    // freeze function
+
+    function freeze(){
+        if(current.some(index =>  squares[currentPosition + index + width].classList.contains('taken')))       // checks next line down
+       { current.forEach(index => squares[currentPosition + index].classList.add('taken'))                     // turn each tetrimino into taken class
+
+        // start a new shape falling
+
+        random = Math.floor(Math.random() * theShapes.length)
+        current = theShapes[random][currentRotation]
+        currentPosition = 4
+        draw()
+    }
+}
+
+
+
+
+
 
 } )
