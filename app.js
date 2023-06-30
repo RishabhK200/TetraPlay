@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         else if(event.key === "ArrowRight" )  moveRight()     // to move right
 
-        else if(event.key === "ArrowUp" )  moveUp()     // to move up
+        else if(event.key === "ArrowUp" )  rotate()     // to rotate the shape
 
         else if(event.key === "ArrowDown" )  moveDown()     // to move down faster
     }
@@ -187,7 +187,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 
-    
+    function rotate(){
+
+        undraw()
+        currentRotation ++ 
+
+        if(currentRotation === current.length) currentRotation = 0          // going back to first rotation after 4th
+
+        current = theShapes[random][currentRotation]
+
+        draw()
+
+    }
 
 
 
