@@ -114,7 +114,22 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // drop the tetriminoes after a interval
 
-    timerId = setInterval(moveDown, 500)
+    timerId = setInterval(moveDown, 1000)
+
+   
+    // Assigning functions to keyCodes
+
+    document.addEventListener('keydown', event => {
+
+        if(event.key === "ArrowLeft" )  moveLeft()     // to move left
+
+        else if(event.key === "ArrowRight" )  moveRight()     // to move right
+
+        else if(event.key === "ArrowUp" )  moveUp()     // to move up
+
+        else if(event.key === "ArrowDown" )  moveDown()     // to move down faster
+    }
+)
 
     function moveDown() {
         undraw()
@@ -148,13 +163,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if(!isAtLeftEdge) currentPosition -=1                                                          // can move left if not at edge
 
-        if(current.some(index => squares))
-
         if(current.some(index => squares[currentPosition + index].classList.contains('taken')))       // to push back to clear space 
         currentPosition +=1
 
         draw() 
     }
+
+
+    // move the tetrimino to right untill it reaches the edge
+
+    function moveRight(){
+
+        undraw()
+
+        const isAtRightEdge = current.some(index => (currentPosition + index) % width === width -1)      // if any current postion touches the edge
+
+        if(!isAtRightEdge) currentPosition +=1                                                          // can move right if not at edge
+
+        if(current.some(index => squares[currentPosition + index].classList.contains('taken')))       // to push back to clear space 
+        currentPosition -=1
+
+        draw() 
+
+    }
+
+    
 
 
 
