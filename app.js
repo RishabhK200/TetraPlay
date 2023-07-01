@@ -9,9 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const startBtn = document.querySelector('#start-button')
 
     const width = 10
+    let nextRandom = 0
     let timerId
     let score = 0
-    let nextRandom = 0
 
       // the colors
       const colors = [ 'orange', 'red', 'purple', 'green', 'blue'] 
@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function undraw() {
         current.forEach(index  => {
           squares[currentPosition + index].classList.remove('tetrimino')
-          squares[currentPosition + index].style.backgroundColor = ' '
+          squares[currentPosition + index].style.backgroundColor = ''
         })
     }
     
@@ -141,7 +141,6 @@ document.addEventListener('DOMContentLoaded', () => {
         else if(event.key === "ArrowDown" )  moveDown()     // to move down faster
     }
 )
-    // move down 
 
     function moveDown() {
         undraw()
@@ -153,7 +152,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // freeze function
 
     function freeze(){
-
         if(current.some(index =>  squares[currentPosition + index + width].classList.contains('taken')))       // checks next line down
        { current.forEach(index => squares[currentPosition + index].classList.add('taken'))                     // turn each tetrimino into taken class
 
@@ -163,7 +161,6 @@ document.addEventListener('DOMContentLoaded', () => {
         nextRandom = Math.floor(Math.random() * theShapes.length)
         current = theShapes[random][currentRotation]
         currentPosition = 4
-
         draw()
         displayShape()
         addScore()
@@ -179,10 +176,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const isAtLeftEdge = current.some(index => (currentPosition + index) % width === 0)            // if any current postion touches the edge
 
-        if(!isAtLeftEdge) currentPosition -=1                                                          // can move left if not at edge
+        if(!isAtLeftEdge) { currentPosition -=1  }                                                        // can move left if not at edge
 
-        if(current.some(index => squares[currentPosition + index].classList.contains('taken')))       // to push back to clear space 
-        currentPosition +=1
+        if(current.some(index => squares[currentPosition + index].classList.contains('taken'))) {      // to push back to clear space 
+        currentPosition +=1 }
 
         draw() 
     }
@@ -204,32 +201,6 @@ document.addEventListener('DOMContentLoaded', () => {
         draw() 
 
     }
-
-//     // fix rotation of tetrimnoes at edge
-
-//   function isAtRight() {
-//     return current.some(index=> (currentPosition + index + 1) % width === 0)  
-//   }
-  
-//   function isAtLeft() {
-//     return current.some(index=> (currentPosition + index) % width === 0)
-//   }
-  
-//   function checkRotatedPosition(P){
-//     P = P || currentPosition       //get current position.  Then, check if the piece is near the left side.
-//     if ((P+1) % width < 4) {         //add 1 because the position index can be 1 less than where the piece is (with how they are indexed).     
-//       if (isAtRight()){            //use actual position to check if it's flipped over to right side
-//         currentPosition += 1    //if so, add one to wrap it back around
-//         checkRotatedPosition(P) //check again.  Pass position from start, since long block might need to move more.
-//         }
-//     }
-//     else if (P % width > 5) {
-//       if (isAtLeft()){
-//         currentPosition -= 1
-//       checkRotatedPosition(P)
-//       }
-//     }
-//   }
     
     // to rotate the tetrimino
 
@@ -277,15 +248,13 @@ document.addEventListener('DOMContentLoaded', () => {
         displaySquares.forEach(square => {
 
           square.classList.remove('tetrimino')
-          square.style.backgroundColor = ' '
+          square.style.backgroundColor = ''
 
         })
 
         upNextTetrominoes[nextRandom].forEach( index => {
-
           displaySquares[displayIndex + index].classList.add('tetrimino')
           displaySquares[displayIndex + index].style.backgroundColor = colors[nextRandom]
-
         })
       }
     
