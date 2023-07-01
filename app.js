@@ -4,11 +4,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let squares = Array.from(document.querySelectorAll('.grid div'))      // to take all 200 div in array using array.from
 
-    const ScoreDisplay = document.querySelector('#score')
+    const scoreDisplay = document.querySelector('#score')
 
-    const StartBtn = document.querySelector('#start-button')
+    const startBtn = document.querySelector('#start-button')
 
     const width = 10
+    let timerId
+    let score = 0
+    let nextRandom = 0
 
     // the tetriminoes (maximum 4 rotations of each)
 
@@ -94,13 +97,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let random = Math.floor(Math.random()*theShapes.length)
 
-    let current = theShapes[random][0]
+    let current = theShapes[random][currentRotation]
 
     // draw the tetrimino
 
     function draw() {
         current.forEach(index=> {
           squares[currentPosition + index].classList.add('tetrimino')
+          squares[currentPosition + index].style.backgroundColor = colors[random]
         })
     }
     
@@ -109,12 +113,13 @@ document.addEventListener('DOMContentLoaded', () => {
     function undraw() {
         current.forEach(index  => {
           squares[currentPosition + index].classList.remove('tetrimino')
+          squares[currentPosition + index].style.backgroundColor = ' '
         })
     }
     
     // drop the tetriminoes after a interval
 
-    timerId = setInterval(moveDown, 1000)
+    // timerId = setInterval(moveDown, 1000)
 
    
     // Assigning functions to keyCodes
@@ -130,6 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
         else if(event.key === "ArrowDown" )  moveDown()     // to move down faster
     }
 )
+    // move down 
 
     function moveDown() {
         undraw()
@@ -141,15 +147,21 @@ document.addEventListener('DOMContentLoaded', () => {
     // freeze function
 
     function freeze(){
+
         if(current.some(index =>  squares[currentPosition + index + width].classList.contains('taken')))       // checks next line down
        { current.forEach(index => squares[currentPosition + index].classList.add('taken'))                     // turn each tetrimino into taken class
 
         // start a new shape falling
 
-        random = Math.floor(Math.random() * theShapes.length)
+        random = nextRandom
+        nextRandom = Math.floor(Math.random() * theShapes.length)
         current = theShapes[random][currentRotation]
         currentPosition = 4
+
         draw()
+        displayShape()
+        addScore()
+        gameOver()
     }
 }
 
@@ -198,6 +210,99 @@ document.addEventListener('DOMContentLoaded', () => {
 
         draw()
 
+    }
+
+    // show next shape in mini-grid
+
+    const displaySquares = document.querySelectorAll('.mini-grid div')
+    const displayWidth = 4
+    let displayIndex = 0 
+
+    // the shapes without rotation
+
+    const upNextTetrominoes = [
+
+        [1, displayWidth+1, displayWidth*2+1, 2], //lShape
+
+        [0, displayWidth, displayWidth+1, displayWidth*2+1], //zShape
+
+        [1, displayWidth, displayWidth+1, displayWidth+2], //tShape
+
+        [0, 1, displayWidth, displayWidth+1], //oShape
+
+        [1, displayWidth+1, displayWidth*2+1, displayWidth*3+1] //iShape
+
+      ]
+
+      // display the grid in mini-grid display
+
+      function displayShape() {
+
+        //remove any trace of a tetromino form the entire grid
+
+        displaySquares.forEach(square => {
+
+          square.classList.remove('tetrimino')
+          square.style.backgroundColor = ' '
+
+        })
+
+        upNextTetrominoes[nextRandom].forEach( index => {
+
+          displaySquares[displayIndex + index].classList.add('tetrimino')
+          displaySquares[displayIndex + index].style.backgroundColor = colors[nextRandom]
+
+        //   displaySquares[displayIndex + index].style.backgroundColor = colors[nextRandom]
+
+        })
+      }
+    
+      // added functionality to the button for start and stop
+
+      startBtn.addEventListener('click', () => {
+        if(timerId) {
+            clearInterval(timerId)
+            timerId = null
+        }
+        else {
+            draw()
+            timerId = setInterval(moveDown,1000)
+            nextRandom = Math.floor(Math.random()*theShapes.length)
+            displayShape()
+        }
+      })
+
+      // to get score
+
+      function addScore(){
+
+        for (let i = 0; i < 199; i+=width) {
+            
+            const row = [i,i+1,i+2,i+3,i+4,i+5,i+6,i+7,i+8,i+9]
+
+            if(row.every(index => squares[index].classList.contains('taken'))) {
+                score +=10
+                scoreDisplay.innerHTML = score 
+                row.forEach(index => {
+                    squares[index].classList.remove('taken')
+                    squares[index].classList.remove('tetrimino')
+                    squares[index].style.backgroundColor = ''
+                })
+
+                const squaresRemoved = squares.splice(i, width)
+                squares = squaresRemoved.concat(squares)                              // append squares to grid
+                squares.forEach(cell => grid.appendChild(cell))
+            }
+        }
+      }
+
+          // game over
+
+        function gameOver() {
+            if(current.some(index => squares[currentPosition + index].classList.contains('taken'))) {
+                scoreDisplay.innerHTML = 'end'
+                clearInterval(timerId)
+         }
     }
 
 
