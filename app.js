@@ -13,20 +13,24 @@ document.addEventListener('DOMContentLoaded', () => {
     let score = 0
     let nextRandom = 0
 
+      // the colors
+      const colors = [ 'orange', 'red', 'purple', 'green', 'blue'] 
+
+
     // the tetriminoes (maximum 4 rotations of each)
 
     const lShape = [
         [1, width+1, width*2+1 , 2],                  // . . 
                                                       // .  
                                                       // . 
-
+    
         [width, width+1,width+2,width*2+2 ],          // . . . 
                                                       //     .
-
+    
         [1, width+1, width*2+1 ,width*2 ],            //   . 
                                                       //   .  
                                                       // . . 
-
+    
         [width, width*2, width*2+1, width*2+2]        // .
                                                       // . . .
      ]
@@ -35,25 +39,25 @@ document.addEventListener('DOMContentLoaded', () => {
         [0,width,width+1,width*2+1],                  // .
                                                       // . . 
                                                       //   .
-
+    
         [width+1, width+2,width*2,width*2+1],         //   . .
                                                       // . .
-
+    
         [0,width,width+1,width*2+1],                  
-
+    
         [width+1, width+2,width*2,width*2+1]
-
+    
       ]
     
-      const tShape = [
-
+     const tShape = [
+    
         [1,width,width+1,width+2],                     //   .
                                                        // . . . 
-
+    
         [1,width+1,width+2,width*2+1],                 //  . 
                                                        //  . . 
                                                        //  .
-
+    
         [width,width+1,width+2,width*2+1],             // . . .
                                                        //   .
                                             
@@ -62,33 +66,35 @@ document.addEventListener('DOMContentLoaded', () => {
                                                        //   .
       ]     
     
-      const oShape = [ 
-
+     const oShape = [ 
+    
         [0,1,width,width+1],                           // . . 
                                                        // . .
         [0,1,width,width+1],
-
+    
         [0,1,width,width+1],
-
+    
         [0,1,width,width+1]
       ]
     
-      const iShape = [
-
+     const iShape = [
+    
         [1,width+1,width*2+1,width*3+1],               // . 
                                                        // .
                                                        // .
                                                        // .
-
+    
         [width,width+1,width+2,width+3],               // . . . .
-
+    
         [1,width+1,width*2+1,width*3+1],              
-
+    
         [width,width+1,width+2,width+3]
-
+    
       ]
 
     const theShapes = [lShape, zShape, tShape, oShape, iShape] 
+
+    // console.log(theShapes)
 
     let currentPosition = 4
     let currentRotation = 0 
@@ -199,6 +205,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 
+//     // fix rotation of tetrimnoes at edge
+
+//   function isAtRight() {
+//     return current.some(index=> (currentPosition + index + 1) % width === 0)  
+//   }
+  
+//   function isAtLeft() {
+//     return current.some(index=> (currentPosition + index) % width === 0)
+//   }
+  
+//   function checkRotatedPosition(P){
+//     P = P || currentPosition       //get current position.  Then, check if the piece is near the left side.
+//     if ((P+1) % width < 4) {         //add 1 because the position index can be 1 less than where the piece is (with how they are indexed).     
+//       if (isAtRight()){            //use actual position to check if it's flipped over to right side
+//         currentPosition += 1    //if so, add one to wrap it back around
+//         checkRotatedPosition(P) //check again.  Pass position from start, since long block might need to move more.
+//         }
+//     }
+//     else if (P % width > 5) {
+//       if (isAtLeft()){
+//         currentPosition -= 1
+//       checkRotatedPosition(P)
+//       }
+//     }
+//   }
+    
+    // to rotate the tetrimino
+
     function rotate(){
 
         undraw()
@@ -252,8 +286,6 @@ document.addEventListener('DOMContentLoaded', () => {
           displaySquares[displayIndex + index].classList.add('tetrimino')
           displaySquares[displayIndex + index].style.backgroundColor = colors[nextRandom]
 
-        //   displaySquares[displayIndex + index].style.backgroundColor = colors[nextRandom]
-
         })
       }
     
@@ -304,9 +336,5 @@ document.addEventListener('DOMContentLoaded', () => {
                 clearInterval(timerId)
          }
     }
-
-
-
-
 
 } )
