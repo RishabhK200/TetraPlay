@@ -1,18 +1,26 @@
+body{
+    background-color: brown ;
+    background-color: #850000;
+    background-image: url("https://www.transparenttextures.com/patterns/black-thread-light.png");
+}
 .container {
-    display: flex;
-  
+  display: flex;
+  justify-content: center;
   }
 
 .grid{
-    width: 200px;
-    height: 400px;
-    background-color: yellow;
+    width: 400px;
+    height: 800px;
     display: flex;
     flex-wrap: wrap;
+    border-radius: 2%;
+    background-color: #ffdd00;
+    background-image: url("https://www.transparenttextures.com/patterns/batthern.png");
+
 }
 .grid div{
-    height: 20px;
-    width: 20px;
+    height: 40px;
+    width: 40px;
 }
 
 .tetrimino {
@@ -21,14 +29,36 @@
 
 .mini-grid {
     margin-left: 50px;
-    width: 80px;
-    height: 80px;
+    width: 160px;
+    height: 160px;
     display: flex;
     flex-wrap: wrap;
-    background-color: yellow;
+    border-radius: 2%;
+    background-color: #ffdd00;
+    background-image: url("https://www.transparenttextures.com/patterns/batthern.png");
   }
   
   .mini-grid div {
-    height: 20px;
-    width: 20px;
+    height: 40px;
+    width: 40px;
   }
+
+  .start-button{
+    font-size: 50px;
+    margin-top: 1%;
+    margin-left: 2%;
+    border-radius: 20px;
+    margin-bottom: 1.5%;
+  }
+
+.score{
+    font-size: 50px;
+    position: fixed;
+    right: 5%;
+    margin-top: 2.5%;
+
+}
+.flexing{
+    display: flex;
+    flex-wrap: wrap;
+}

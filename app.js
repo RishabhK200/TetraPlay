@@ -1,12 +1,26 @@
-document.addEventListener('DOMContentLoaded', () => {
+// document.addEventListener('DOMContentLoaded', () => {
     
+    // window.addEventListener("load",() => {
+    //   window.location.href = "https://my.spline.design/3dtextbluecopy-3437236f3e288d994b8782131e51a13d/"
+    //   document.addEventListener('keydown',checkKey)
+    // })
+
+    // function checkKey(event){
+    //     if(event.key === 'Enter'){
+    //       window.location.href = 'website url'
+    //     }
+    // }
+
+    //<script type="module" src="https://unpkg.com/@splinetool/viewer@0.9.374/build/spline-viewer.js"></script>
+     // <spline-viewer url="https://prod.spline.design/GtLj6YZgDsnuG-Gg/scene.splinecode"></spline-viewer>
+
     const grid = document.querySelector('.grid')                          // to select grid
 
     let squares = Array.from(document.querySelectorAll('.grid div'))      // to take all 200 div in array using array.from
 
-    const scoreDisplay = document.querySelector('#score')
+    const scoreDisplay = document.querySelector('.score')
 
-    const startBtn = document.querySelector('#start-button')
+    const startBtn = document.querySelector('.start-button')
 
     const width = 10
     let nextRandom = 0
@@ -301,9 +315,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function gameOver() {
             if(current.some(index => squares[currentPosition + index].classList.contains('taken'))) {
-                scoreDisplay.innerHTML = 'end'
+                scoreDisplay.innerHTML = 'Your score is ' + score 
                 clearInterval(timerId)
          }
     }
 
-} )
+// } )
