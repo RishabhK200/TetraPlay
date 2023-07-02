@@ -1,6 +1,6 @@
 # TetraPlay
 
-Welcome to TetraPlay! This project is a simple implementation of the classic game Tetris using Html,CSS,Javascript. It offers an enjoyable gaming experience with colorful blocks, intuitive controls, and a scoring system.
+Welcome to TetraPlay! This project is a simple implementation of the classic game Tetris using Html, CSS and Javascript. It offers an enjoyable gaming experience with colorful blocks, intuitive controls, and a scoring system.
 
 ![front-teris](https://github.com/RishabhK200/TetraPlay/assets/72266058/e29d2882-cdb8-469d-bd80-8edc27e2a44c)
 
